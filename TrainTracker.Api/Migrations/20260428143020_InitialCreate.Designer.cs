@@ -11,7 +11,7 @@ using TrainTracker.Api.Data;
 
 namespace TrainTracker.Api.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20260428143020_InitialCreate")]
     partial class InitialCreate
     {

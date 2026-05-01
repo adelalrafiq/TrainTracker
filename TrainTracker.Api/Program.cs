@@ -4,6 +4,7 @@ using TrainTracker.Api.Hubs;
 using TrainTracker.Api.Services.Implementations;
 using TrainTracker.Api.Services.Interfaces;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,21 +13,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 builder.Services.AddSignalR();
-builder.Services.AddCors();
+builder.Services.AddHttpClient<ILiveboardService, LiveboardService>();
+//builder.Services.AddCors();
 builder.Services.AddCors(options =>
 {
-  options.AddPolicy("AllowAll",
-      policy => policy.AllowAnyHeader()
-                      .AllowAnyMethod()
-                      .AllowAnyOrigin());
+  options.AddPolicy("AllowAngularClient", policy =>
+  {
+    policy.WithOrigins("http://localhost:4200")
+          .AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowCredentials();
+  });
 });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
   options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
-//HttpClient
-builder.Services.AddHttpClient<ITrainApiService, TrainApiService>();
+
 
 
 var app = builder.Build();
@@ -38,13 +42,11 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
-
-app.MapHub<TrainHub>("/trainHub");
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
-app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
+app.UseCors("AllowAngularClient");
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<TrainHub>("/trainHub");
 
 app.Run();

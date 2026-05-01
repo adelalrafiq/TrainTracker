@@ -12,7 +12,7 @@ using TrainTracker.Api.Data;
 
 namespace TrainTracker.Api.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20260428165054_AddedModelsTables")]
     partial class AddedModelsTables
     {
