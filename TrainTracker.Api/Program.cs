@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TrainTracker.Api.Data;
-using TrainTracker.Api.Hubs;
 using TrainTracker.Api.Services.Implementations;
 using TrainTracker.Api.Services.Interfaces;
 
@@ -14,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 builder.Services.AddSignalR();
 builder.Services.AddHttpClient<ILiveboardService, LiveboardService>();
+builder.Services.AddScoped<IStationsService, StationsService>();
 //builder.Services.AddCors();
 builder.Services.AddCors(options =>
 {
@@ -47,6 +47,6 @@ app.UseCors("AllowAngularClient");
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<TrainHub>("/trainHub");
+
 
 app.Run();

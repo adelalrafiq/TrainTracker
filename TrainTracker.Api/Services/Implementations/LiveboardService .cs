@@ -43,7 +43,7 @@ public class LiveboardService : ILiveboardService
 
   private async Task<LiveboardDto> FetchFromApi(string station)
   {
-    var url = $"https://api.irail.be/liveboard/?station={station}&arrdep=departure&format=json";
+    var url = $"https://api.irail.be/liveboard/?station={station}&arrdep=departure&format=json&lang=nl";
 
     var response = await _httpClient.GetStringAsync(url);
 

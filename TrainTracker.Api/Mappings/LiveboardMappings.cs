@@ -11,7 +11,7 @@ public static class LiveboardMappings
     return new LiveboardRowDto
     {
       DirectionName = d.Station,
-      DepartureTime = ParseUnix(d.Time),
+      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(long.TryParse(d.Time, out var unixSeconds) ? unixSeconds : 0).ToLocalTime(),
       Platform = d.Platform,
       VehicleInfoShortname = d.VehicleInfo.ShortName,
       DelayMinutes = ParseDelay(d.Delay),
@@ -33,15 +33,6 @@ public static class LiveboardMappings
       .OrderBy(x => x.DepartureTime)
       .ToList() ?? new List<LiveboardRowDto>()
     };
-  }
-
-  private static DateTime ParseUnix(string unixTime)
-  {
-    if (long.TryParse(unixTime, out var unixSeconds))
-    {
-      return DateTimeOffset.FromUnixTimeSeconds(unixSeconds).DateTime;
-    }
-    return DateTime.MinValue; // Fallback value
   }
 
   private static int ParseDelay(string delay)
