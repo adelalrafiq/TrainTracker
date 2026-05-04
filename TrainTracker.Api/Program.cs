@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 {
   options.AddPolicy("AllowAngularClient", policy =>
   {
-    policy.WithOrigins("http://localhost:4200")
+    policy.WithOrigins("https://train-tracker-ui-fdfc.vercel.app")
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();
