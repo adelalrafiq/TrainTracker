@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TrainTracker.Api.Models.DTOs;
 using TrainTracker.Api.Services.Interfaces;
 
 
@@ -15,8 +16,15 @@ public class LiveboardController : ControllerBase
     _liveboardService = liveboardService;
   }
 
-  // GET: api/liveboard?station=Ghent
+  // GET: api/liveboard/station=Gent
+  /// <summary>
+  /// Get live departure board for a station
+  /// </summary>
+  /// <param name="station">Station name (e.g. Sint-Niklaas)</param>
+  /// <returns>List of upcoming departures</returns>
   [HttpGet("{station}")]
+  [ProducesResponseType(typeof(LiveboardDto), 200)]
+  [ProducesResponseType(400)]
   public async Task<IActionResult> GetLiveboard(string station)
   {
     if (string.IsNullOrWhiteSpace(station))
