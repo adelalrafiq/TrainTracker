@@ -13,4 +13,6 @@ public class LiveboardRowDto
   /// <example>5</example>
   public int DelayMinutes { get; set; }
   public TrainStatus Status { get; set; }
+  public string VehicleId { get; set; }
+  public List<string> Stops { get; set; } = new List<string>();
 }

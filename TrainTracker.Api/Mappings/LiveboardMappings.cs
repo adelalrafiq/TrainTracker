@@ -15,7 +15,8 @@ public static class LiveboardMappings
       Platform = d.Platform,
       VehicleInfoShortname = d.VehicleInfo.ShortName,
       DelayMinutes = ParseDelay(d.Delay),
-      Status = MapStatus(d)
+      Status = MapStatus(d),
+      VehicleId = d.Vehicle
     };
   }
 

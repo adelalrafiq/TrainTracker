@@ -57,6 +57,52 @@ public class LiveboardService : ILiveboardService
     if (data == null)
       return new LiveboardDto { Rows = new List<LiveboardRowDto>() };
 
-    return data.ToDto(); // ✅ Extension Method
+    var dto = data.ToDto(); // mapping from API model to DTO
+    await AddStopsToRows(dto.Rows); // ✅ Add stops info to each row
+    return dto;
+  }
+
+  private async Task AddStopsToRows(List<LiveboardRowDto> rows)
+  {
+    await Task.WhenAll(rows.Select(async row =>
+    {
+      if (!string.IsNullOrEmpty(row.VehicleId))
+      {
+        row.Stops = await GetStops(row.VehicleId);
+      }
+    }));
+  }
+
+  private async Task<List<string>> GetStops(string vehicleId)
+  {
+    var cacheKey = $"vehicle:{vehicleId}";
+
+    // ✅ cache
+    if (_cache.TryGetValue(cacheKey, out List<string> cached))
+      return cached;
+
+    try
+    {
+      var url = $"https://api.irail.be/vehicle/?id={vehicleId}&format=json";
+
+      var response = await _httpClient.GetStringAsync(url);
+
+      var data = JsonSerializer.Deserialize<VehicleResponse>(response,
+        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+      var stops = data?.Stops?.Stop?
+        .Select(s => s.Station)
+        .Take(3)
+        .ToList()
+        ?? new List<string>();
+
+      _cache.Set(cacheKey, stops, TimeSpan.FromMinutes(5));
+
+      return stops;
+    }
+    catch
+    {
+      return new List<string>();
+    }
   }
 }

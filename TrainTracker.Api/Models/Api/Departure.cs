@@ -9,6 +9,6 @@ public class Departure
   public string Platform { get; set; }
 
   public string Canceled { get; set; }
-
+  public string Vehicle { get; set; }
   public VehicleInfo VehicleInfo { get; set; }
 }
