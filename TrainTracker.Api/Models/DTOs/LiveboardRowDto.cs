@@ -15,5 +15,5 @@ public class LiveboardRowDto
   public TrainStatus Status { get; set; }
   public string DisplayStatus { get; set; } = string.Empty;
   public string VehicleId { get; set; } = string.Empty;
-  public List<StopDto> Stops { get; set; } = [];
+  public List<StopDto> Stops { get; set; } = new List<StopDto>();
 }
