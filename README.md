@@ -16,23 +16,33 @@ This API integrates with the public iRail API to provide live departures, train 
 📸 Swagger Preview
 ![Screenshot of homepage](images/liveboard_api.png)
 
-✨ Features
-🚉 Real-time train departure board
-🔍 Station search with autocomplete support
-🚦 Train delay and cancellation status handling
-🛤️ Dynamic train stops calculation
-⚡ In-memory caching for performance optimization
-🔄 External railway API integration (iRail)
-📡 RESTful API architecture
-🛠️ Tech Stack
-ASP.NET Core Web API
-C#
-MemoryCache
-HttpClient
-REST API
-JSON Serialization
-DTO Mapping Layer
-📂 Project Structure
+---
+
+##✨ Features
+*🚉 Real-time train departure board
+*🔍 Station search with autocomplete support
+*🚦 Train delay and cancellation status handling
+*🛤️ Dynamic train stops calculation
+*⚡ In-memory caching for performance optimization
+*🔄 External railway API integration (iRail)
+*📡 RESTful API architecture
+
+---
+
+##🛠️ Tech Stack
+*ASP.NET Core Web API
+*C#
+*MemoryCache
+*HttpClient
+*REST API
+*JSON Serialization
+*DTO Mapping Layer
+
+---
+
+##📂 Project Structure
+
+```
 Controllers/
 Mappings/
 Models/
@@ -41,19 +51,23 @@ Models/
 Services/
  ├── Implementations/
  └── Interfaces/
-🧠 Architecture
+ ```
 
-The backend follows a service-based architecture:
+##🧠 Architecture
 
-Controllers → Services → Mapping Layer → External API
+*The backend follows a service-based architecture:
 
-The application uses:
+**Controllers → Services → Mapping Layer → External API
 
-DTO mapping for optimized frontend responses
+*The application uses:
+
+**DTO mapping for optimized frontend responses
 Memory caching to reduce repeated external API requests
-Async processing for concurrent train stop loading
-📡 API Endpoints
-🚉 Liveboard
+**Async processing for concurrent train stop loading
+##📡 API Endpoints
+*🚉 Liveboard
+
+```
 
 GET /api/liveboard/{station}
 
@@ -78,7 +92,12 @@ Response:
     }
   ]
 }
-🔍 Stations Search
+
+```
+
+##🔍 Stations Search
+
+```
 
 GET /api/stations?query={text}
 
@@ -92,61 +111,68 @@ Response:
   { "name": "Gent-Sint-Pieters" },
   { "name": "Genk" }
 ]
-⚡ Caching Strategy
 
-The API uses in-memory caching to improve performance and reduce unnecessary external API calls.
+```
 
-Implemented caching:
+##⚡ Caching Strategy
 
-Liveboard caching
-Vehicle/stops caching
-Sliding expiration
-Absolute expiration
-🌍 External API
+*The API uses in-memory caching to improve performance and reduce unnecessary external API calls.
 
-This project uses the public iRail API:
+*Implemented caching:
 
-iRail API
+*Liveboard caching
+*Vehicle/stops caching
+*Sliding expiration
+*Absolute expiration
 
-📄 API Documentation (Swagger)
+##🌍 External API
 
-Interactive Swagger documentation available at:
+*This project uses the public iRail API:
+
+**iRail API
+
+##📄 API Documentation (Swagger)
+
+*Interactive Swagger documentation available at:
 
 🔗 https://traintracker-1.onrender.com/swagger
 
-⚙️ Setup
-Clone repository
+##⚙️ Setup
+*Clone repository
 git clone https://github.com/adelalrafiq/TrainTracker.git
-Run locally
-dotnet run
+*Run locally
+*dotnet run
 
-API runs on:
+*API runs on:
 
 https://localhost:5000
-🌐 Deployment
 
-Backend deployed using:
+##🌐 Deployment
 
-Render
+*Backend deployed using:
+
+**Render
 ⚠️ Notes
-Backend is hosted on Render free tier
-First request may take a few seconds due to cold start
-Data is provided by the public iRail API
-🔮 Future Improvements
-⚡ Real-time updates using SignalR
-🧠 Distributed caching (Redis)
-🔐 JWT authentication
-📊 API monitoring and logging
-🔗 Related
-Frontend Repository
+*Backend is hosted on Render free tier
+*First request may take a few seconds due to cold start
+*Data is provided by the public iRail API
+
+##🔮 Future Improvements
+*⚡ Real-time updates using SignalR
+*🧠 Distributed caching (Redis)
+*🔐 JWT authentication
+*📊 API monitoring and logging
+
+##🔗 Related
+*Frontend Repository
 
 https://github.com/adelalrafiq/train-tracker-ui
 
-Live Frontend
+*Live Frontend
 
 https://train-tracker-ui-fdfc.vercel.app/liveboard
 
-👨‍💻 Author
+##👨‍💻 Author
 
-Adel Al-Rafiq 🚀
-Full Stack Developer
+**Adel Al-Rafiq 🚀**
+**Full Stack Developer**
