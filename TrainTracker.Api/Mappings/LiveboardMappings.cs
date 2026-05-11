@@ -38,9 +38,9 @@ public static class LiveboardMappings
 
   private static int ParseDelay(string delay)
   {
-    if (int.TryParse(delay, out var delayMinutes))
+    if (int.TryParse(delay, out var delaySeconds))
     {
-      return delayMinutes;
+      return (int)Math.Ceiling(delaySeconds / 60.0);
     }
     return 0; // Fallback value
   }

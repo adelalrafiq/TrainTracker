@@ -45,15 +45,10 @@ builder.Services.AddCors(options =>
   });
 });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+//builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-  app.MapOpenApi();
-}
 app.UseHttpsRedirection();
 app.UseSwagger();
 
@@ -69,7 +64,5 @@ app.UseCors("AllowAngularClient");
 app.UseAuthorization();
 
 app.MapControllers();
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Urls.Add($"http://*:{port}");
 
 app.Run();

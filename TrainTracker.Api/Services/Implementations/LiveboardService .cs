@@ -22,14 +22,14 @@ public class LiveboardService : ILiveboardService
   {
     var cacheKey = $"liveboard:{station.ToLower()}";
 
-    // ✅ 1. حاول تجيب من الكاش
+    // cache
     if (_cache.TryGetValue(cacheKey, out LiveboardDto cachedData))
       return cachedData;
 
-    // ❌ 2. إذا مش موجود → اطلب من API
+    // fetch fresh data
     var freshData = await FetchFromApi(station);
 
-    // ✅ 3. خزّن في الكاش
+    // cache options
     var cacheOptions = new MemoryCacheEntryOptions
     {
       AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30), // مدة الكاش
@@ -58,51 +58,144 @@ public class LiveboardService : ILiveboardService
       return new LiveboardDto { Rows = new List<LiveboardRowDto>() };
 
     var dto = data.ToDto(); // mapping from API model to DTO
-    await AddStopsToRows(dto.Rows); // ✅ Add stops info to each row
+    await AddStopsToRows(dto.Rows, station); // ✅ Add stops info to each row
     return dto;
   }
 
-  private async Task AddStopsToRows(List<LiveboardRowDto> rows)
+  private async Task AddStopsToRows(List<LiveboardRowDto> rows, string currentStation)
   {
     await Task.WhenAll(rows.Select(async row =>
     {
       if (!string.IsNullOrEmpty(row.VehicleId))
       {
-        row.Stops = await GetStops(row.VehicleId);
+        var result = await GetStops(row.VehicleId, currentStation);
+        row.Stops = result.Stops;
+        row.DisplayStatus = BuildDisplayStatus(row, result.CurrentStationStatus);
       }
     }));
   }
 
-  private async Task<List<string>> GetStops(string vehicleId)
+  private async Task<StopsResultDto> GetStops(string vehicleId, string currentStation)
   {
-    var cacheKey = $"vehicle:{vehicleId}";
+    var cacheKey = $"vehicle:{vehicleId}:{currentStation.ToLower()}";
 
-    // ✅ cache
-    if (_cache.TryGetValue(cacheKey, out List<string> cached))
+    //  cache
+    if (_cache.TryGetValue(cacheKey, out StopsResultDto cached))
       return cached;
 
     try
     {
-      var url = $"https://api.irail.be/vehicle/?id={vehicleId}&format=json";
+      var url = $"https://api.irail.be/vehicle/?id={Uri.EscapeDataString(vehicleId)}&format=json&lang=nl";
 
       var response = await _httpClient.GetStringAsync(url);
 
       var data = JsonSerializer.Deserialize<VehicleResponse>(response,
         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-      var stops = data?.Stops?.Stop?
-        .Select(s => s.Station)
-        .Take(3)
-        .ToList()
-        ?? new List<string>();
+      var allStops =
+       data?.Stops?.Stop?.ToList()
+       ?? new List<VehicleStop>();
 
-      _cache.Set(cacheKey, stops, TimeSpan.FromMinutes(5));
+      if (!allStops.Any())
+      {
+        return new StopsResultDto();
+      }
 
-      return stops;
+      var now = DateTimeOffset.UtcNow;
+
+      // current station index
+      var currentIndex = allStops.FindIndex(s =>
+          s.Station.Equals(
+            currentStation,
+            StringComparison.OrdinalIgnoreCase));
+
+      if (currentIndex < 0)
+      {
+        return new StopsResultDto();
+      }
+
+      var currentStop = allStops[currentIndex];
+
+      // Current station status
+      string currentStatus = "";
+
+      // scheduled arrival time
+      var scheduledTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(currentStop.Time));
+
+      // iRail delay is seconds 
+      var delaySeconds = int.TryParse(currentStop.Delay, out var d) ? d : 0;
+
+      // real arrival time
+      var eta = scheduledTime.AddSeconds(delaySeconds);
+
+      // seconds until arrival
+      var secondsToArrival = (eta - now).TotalSeconds;
+
+      if (currentStop.Arrived == "1"
+      && currentStop.Left == "0")
+      {
+        currentStatus = "aan perron";
+      }
+      // train arriving very soon
+      else if (currentStop.Arrived == "0"
+        && secondsToArrival <= 90
+         && secondsToArrival > 0)
+      {
+        currentStatus = "komt aan";
+      }
+
+      // Upcoming Stops (After current station)      
+      var finalDestination = allStops.LastOrDefault()?.Station;
+      var upcomingStops = allStops
+          .Skip(currentIndex + 1)
+          // remove destination station
+          .Where(s => !s.Station.Equals(
+                  finalDestination,
+                  StringComparison.OrdinalIgnoreCase))
+          .Take(3)
+          .Select(s =>
+          {
+            var stopTime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(s.Time));
+            return new StopDto
+            {
+              Station = s.Station,
+              ArrivalTime = stopTime,
+              Status = ""
+            };
+          })
+          .ToList()
+          ?? new List<StopDto>();
+
+      var result = new StopsResultDto
+      {
+        Stops = upcomingStops,
+        CurrentStationStatus = currentStatus
+      };
+
+      _cache.Set(cacheKey, result, TimeSpan.FromSeconds(10));
+
+      return result;
     }
-    catch
+    catch (Exception ex)
     {
-      return new List<string>();
+      Console.WriteLine(ex);
+      return new StopsResultDto();
     }
+  }
+
+  private string BuildDisplayStatus(LiveboardRowDto row, string currentStationStatus)
+  {
+    // geannuleerd
+    if (row.Status == TrainStatus.Canceled)
+    {
+      return "geannuleerd";
+    }
+    // current station status
+    if (!string.IsNullOrEmpty(currentStationStatus))
+    {
+      return currentStationStatus;
+    }
+    // default
+    return "";
   }
 }
