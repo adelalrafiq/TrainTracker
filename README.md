@@ -1,15 +1,12 @@
-﻿🚆 TrainTracker API
+﻿##🚆 TrainTracker API
 
 A modern full-stack backend API for a real-time train departure board application inspired by European railway station displays.
 
 This API integrates with the public iRail API to provide live departures, train stop information, delay handling, and station search functionality for the frontend application.
 
+---
 
-
-
-
-
-🌍 Live API
+##🌍 Live API
 
 🔗 https://traintracker-1.onrender.com/swagger/index.html
 
@@ -53,6 +50,8 @@ Services/
  └── Interfaces/
  ```
 
+---
+
 ##🧠 Architecture
 
 *The backend follows a service-based architecture:
@@ -64,6 +63,9 @@ Services/
 **DTO mapping for optimized frontend responses
 Memory caching to reduce repeated external API requests
 **Async processing for concurrent train stop loading
+
+---
+
 ##📡 API Endpoints
 *🚉 Liveboard
 
@@ -95,6 +97,8 @@ Response:
 
 ```
 
+---
+
 ##🔍 Stations Search
 
 ```
@@ -114,6 +118,8 @@ Response:
 
 ```
 
+---
+
 ##⚡ Caching Strategy
 
 *The API uses in-memory caching to improve performance and reduce unnecessary external API calls.
@@ -124,6 +130,8 @@ Response:
 *Vehicle/stops caching
 *Sliding expiration
 *Absolute expiration
+
+---
 
 ##🌍 External API
 
@@ -137,6 +145,8 @@ Response:
 
 🔗 https://traintracker-1.onrender.com/swagger
 
+---
+
 ##⚙️ Setup
 *Clone repository
 git clone https://github.com/adelalrafiq/TrainTracker.git
@@ -146,6 +156,8 @@ git clone https://github.com/adelalrafiq/TrainTracker.git
 *API runs on:
 
 https://localhost:5000
+
+---
 
 ##🌐 Deployment
 
@@ -157,20 +169,26 @@ https://localhost:5000
 *First request may take a few seconds due to cold start
 *Data is provided by the public iRail API
 
+---
+
 ##🔮 Future Improvements
 *⚡ Real-time updates using SignalR
 *🧠 Distributed caching (Redis)
 *🔐 JWT authentication
 *📊 API monitoring and logging
 
+---
+
 ##🔗 Related
-*Frontend Repository
+Frontend Repository
 
 https://github.com/adelalrafiq/train-tracker-ui
 
-*Live Frontend
+Live Frontend
 
 https://train-tracker-ui-fdfc.vercel.app/liveboard
+
+---
 
 ##👨‍💻 Author
 
