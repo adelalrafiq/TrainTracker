@@ -1,4 +1,4 @@
-﻿##🚆 TrainTracker API
+﻿# 🚆 TrainTracker API
 
 A modern full-stack backend API for a real-time train departure board application inspired by European railway station displays.
 
@@ -6,7 +6,7 @@ This API integrates with the public iRail API to provide live departures, train 
 
 ---
 
-##🌍 Live API
+## 🌍 Live API
 
 🔗 https://traintracker-1.onrender.com/swagger/index.html
 
@@ -15,31 +15,32 @@ This API integrates with the public iRail API to provide live departures, train 
 
 ---
 
-##✨ Features
-*🚉 Real-time train departure board
-*🔍 Station search with autocomplete support
-*🚦 Train delay and cancellation status handling
-*🛤️ Dynamic train stops calculation
-*⚡ In-memory caching for performance optimization
-*🔄 External railway API integration (iRail)
-*📡 RESTful API architecture
+## ✨ Features
+* 🚉 Real-time train departure board
+* 🔍 Station search with autocomplete support
+* 🚦 Train delay and cancellation status handling
+* 🛤️ Dynamic train stops calculation
+* ⚡ In-memory caching for performance optimization
+* 🔄 External railway API integration (iRail)
+* 📡 RESTful API architecture
 
 ---
 
-##🛠️ Tech Stack
-*ASP.NET Core Web API
-*C#
-*MemoryCache
-*HttpClient
-*REST API
-*JSON Serialization
-*DTO Mapping Layer
+## 🛠️ Tech Stack
+* ASP.NET Core Web API
+* C#
+* MemoryCache
+* HttpClient
+* REST API
+* JSON Serialization
+* DTO Mapping Layer
 
 ---
 
-##📂 Project Structure
+## 📂 Project Structure
 
 ```
+
 Controllers/
 Mappings/
 Models/
@@ -48,26 +49,27 @@ Models/
 Services/
  ├── Implementations/
  └── Interfaces/
+
  ```
 
 ---
 
-##🧠 Architecture
+## 🧠 Architecture
 
-*The backend follows a service-based architecture:
+* The backend follows a service-based architecture:
 
-**Controllers → Services → Mapping Layer → External API
+* Controllers → Services → Mapping Layer → External API
 
-*The application uses:
+* The application uses:
 
-**DTO mapping for optimized frontend responses
+* DTO mapping for optimized frontend responses
 Memory caching to reduce repeated external API requests
-**Async processing for concurrent train stop loading
+* Async processing for concurrent train stop loading
 
 ---
 
-##📡 API Endpoints
-*🚉 Liveboard
+## 📡 API Endpoints
+* 🚉 Liveboard
 
 ```
 
@@ -99,7 +101,7 @@ Response:
 
 ---
 
-##🔍 Stations Search
+## 🔍 Stations Search
 
 ```
 
@@ -120,66 +122,66 @@ Response:
 
 ---
 
-##⚡ Caching Strategy
+## ⚡ Caching Strategy
 
-*The API uses in-memory caching to improve performance and reduce unnecessary external API calls.
+* The API uses in-memory caching to improve performance and reduce unnecessary external API calls.
 
-*Implemented caching:
+* Implemented caching:
 
-*Liveboard caching
-*Vehicle/stops caching
-*Sliding expiration
-*Absolute expiration
+* Liveboard caching
+* Vehicle/stops caching
+* Sliding expiration
+* Absolute expiration
 
 ---
 
-##🌍 External API
+## 🌍 External API
 
 *This project uses the public iRail API:
 
-**iRail API
+[iRail API](https://docs.irail.be/)
 
-##📄 API Documentation (Swagger)
+## 📄 API Documentation (Swagger)
 
-*Interactive Swagger documentation available at:
+Interactive Swagger documentation available at:
 
 🔗 https://traintracker-1.onrender.com/swagger
 
 ---
 
-##⚙️ Setup
-*Clone repository
+## ⚙️ Setup
+* Clone repository
 git clone https://github.com/adelalrafiq/TrainTracker.git
-*Run locally
-*dotnet run
+* Run locally
+* dotnet run
 
-*API runs on:
+* API runs on:
 
 https://localhost:5000
 
 ---
 
-##🌐 Deployment
+## 🌐 Deployment
 
-*Backend deployed using:
+* Backend deployed using:
 
-**Render
+* Render
 ⚠️ Notes
-*Backend is hosted on Render free tier
-*First request may take a few seconds due to cold start
-*Data is provided by the public iRail API
+* Backend is hosted on Render free tier
+* First request may take a few seconds due to cold start
+* Data is provided by the public iRail API
 
 ---
 
-##🔮 Future Improvements
-*⚡ Real-time updates using SignalR
-*🧠 Distributed caching (Redis)
-*🔐 JWT authentication
-*📊 API monitoring and logging
+## 🔮 Future Improvements
+* ⚡ Real-time updates using SignalR
+* 🧠 Distributed caching (Redis)
+* 🔐 JWT authentication
+* 📊 API monitoring and logging
 
 ---
 
-##🔗 Related
+## 🔗 Related
 Frontend Repository
 
 https://github.com/adelalrafiq/train-tracker-ui
@@ -190,7 +192,7 @@ https://train-tracker-ui-fdfc.vercel.app/liveboard
 
 ---
 
-##👨‍💻 Author
+## 👨‍💻 Author
 
 **Adel Al-Rafiq 🚀**
 **Full Stack Developer**
