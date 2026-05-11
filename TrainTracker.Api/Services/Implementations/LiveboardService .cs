@@ -58,7 +58,7 @@ public class LiveboardService : ILiveboardService
       return new LiveboardDto { Rows = new List<LiveboardRowDto>() };
 
     var dto = data.ToDto(); // mapping from API model to DTO
-    await AddStopsToRows(dto.Rows, station); // ✅ Add stops info to each row
+    await AddStopsToRows(dto.Rows, station); // Add stops info to each row
     return dto;
   }
 

@@ -19,7 +19,7 @@ public class StationsService : IStationsService
     if (string.IsNullOrWhiteSpace(query))
       return new List<StationDto>();
 
-    // 🔥 load مرة واحدة فقط
+    // load once
     if (_cachedStations == null)
     {
       var url = "https://api.irail.be/stations/?format=json&lang=nl";
@@ -41,7 +41,7 @@ public class StationsService : IStationsService
         ?? new List<string>();
     }
 
-    // 🔍 filter    
+    // filter    
     return _cachedStations
       .Where(s =>
       s.StartsWith(query, StringComparison.OrdinalIgnoreCase))
