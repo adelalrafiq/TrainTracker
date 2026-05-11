@@ -137,9 +137,11 @@ Response:
 
 ## 🌍 External API
 
-*This project uses the public iRail API:
+This project uses the public iRail API:
 
 [iRail API](https://docs.irail.be/)
+
+---
 
 ## 📄 API Documentation (Swagger)
 
@@ -164,9 +166,11 @@ https://localhost:5000
 ## 🌐 Deployment
 
 * Backend deployed using:
+ Render
 
-* Render
-⚠️ Notes
+ ---
+
+ ## ⚠️ Notes
 * Backend is hosted on Render free tier
 * First request may take a few seconds due to cold start
 * Data is provided by the public iRail API
