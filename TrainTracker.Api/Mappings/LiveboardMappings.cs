@@ -26,8 +26,8 @@ public static class LiveboardMappings
     return new LiveboardDto
     {
       StationName = response.Station,
-      Longitude = ParseDouble(response.StationInfo?.LocationX),
-      Latitude = ParseDouble(response.StationInfo?.LocationY),
+      Longitude = ParseDouble(response.StationInfo?.LocationX ?? ""),
+      Latitude = ParseDouble(response.StationInfo?.LocationY ?? ""),
       Rows = response.Departures?.Departure?
       .Take(10)
       .Select(d => d.ToDto(response.Station))

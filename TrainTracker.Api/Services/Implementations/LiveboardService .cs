@@ -23,7 +23,7 @@ public class LiveboardService : ILiveboardService
     var cacheKey = $"liveboard:{station.ToLower()}";
 
     // cache
-    if (_cache.TryGetValue(cacheKey, out LiveboardDto cachedData))
+    if (_cache.TryGetValue(cacheKey, out LiveboardDto? cachedData) && cachedData != null)
       return cachedData;
 
     // fetch fresh data
@@ -80,7 +80,7 @@ public class LiveboardService : ILiveboardService
     var cacheKey = $"vehicle:{vehicleId}:{currentStation.ToLower()}";
 
     //  cache
-    if (_cache.TryGetValue(cacheKey, out StopsResultDto cached))
+    if (_cache.TryGetValue(cacheKey, out StopsResultDto? cached) && cached != null)
       return cached;
 
     try

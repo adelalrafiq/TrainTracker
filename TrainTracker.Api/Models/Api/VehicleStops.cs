@@ -2,5 +2,5 @@
 
 public class VehicleStops
 {
-  public List<VehicleStop> Stop { get; set; } = new List<VehicleStop>();
+  public List<VehicleStop> Stop { get; set; } = [];
 }

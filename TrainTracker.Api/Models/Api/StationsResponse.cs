@@ -5,5 +5,5 @@ namespace TrainTracker.Api.Models.Api;
 public class StationsResponse
 {
   [JsonPropertyName("station")]
-  public List<StationApi> Stations { get; set; }
+  public List<StationApi> Stations { get; set; } = [];
 }

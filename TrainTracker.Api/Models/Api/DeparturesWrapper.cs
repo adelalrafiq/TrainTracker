@@ -2,5 +2,5 @@
 
 public class DeparturesWrapper
 {
-  public List<Departure> Departure { get; set; }
+  public List<Departure> Departure { get; set; } = [];
 }

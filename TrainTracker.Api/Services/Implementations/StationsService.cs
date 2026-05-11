@@ -8,7 +8,7 @@ namespace TrainTracker.Api.Services.Implementations;
 public class StationsService : IStationsService
 {
   private readonly HttpClient _httpClient;
-  private static List<string> _cachedStations;
+  private static List<string> _cachedStations = new();
 
   public StationsService(HttpClient httpClient)
   {

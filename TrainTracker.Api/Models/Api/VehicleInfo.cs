@@ -2,5 +2,5 @@
 
 public class VehicleInfo
 {
-  public string ShortName { get; set; }
+  public string ShortName { get; set; } = string.Empty;
 }

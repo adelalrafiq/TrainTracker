@@ -2,7 +2,7 @@
 
 public class LiveboardResponse
 {
-  public string Station { get; set; }
-  public StationInfo StationInfo { get; set; }
-  public DeparturesWrapper Departures { get; set; }
+  public string Station { get; set; } = string.Empty;
+  public StationInfo StationInfo { get; set; } = new();
+  public DeparturesWrapper Departures { get; set; } = new();
 }

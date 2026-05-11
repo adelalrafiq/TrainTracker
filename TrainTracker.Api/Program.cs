@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 {
   options.AddPolicy("AllowAngularClient", policy =>
   {
-    policy.WithOrigins(allowedOrigins)
+    policy.WithOrigins(allowedOrigins ?? [])
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials();

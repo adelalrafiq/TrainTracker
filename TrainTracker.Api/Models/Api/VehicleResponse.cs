@@ -2,5 +2,5 @@
 
 public class VehicleResponse
 {
-  public VehicleStops Stops { get; set; }
+  public VehicleStops Stops { get; set; } = new();
 }

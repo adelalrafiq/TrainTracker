@@ -5,5 +5,5 @@ namespace TrainTracker.Api.Models.Api;
 public class StationApi
 {
   [JsonPropertyName("name")]
-  public string Name { get; set; }
+  public string Name { get; set; } = string.Empty;
 }
