@@ -1,19 +1,30 @@
-﻿TrainTracker API 🚆
+﻿🚆 TrainTracker API
 
-Backend API for a real-time train departure tracking application built with ASP.NET Core.
+A modern full-stack backend API for a real-time train departure board application inspired by European railway station displays.
 
-This API integrates with the public iRail API to provide live departure data, train stop information, delay handling, and station search functionality for the frontend application.
+This API integrates with the public iRail API to provide live departures, train stop information, delay handling, and station search functionality for the frontend application.
+
+
+
+
+
+
+🌍 Live API
+
+🔗 https://traintracker-1.onrender.com/swagger/index.html
+
+📸 Swagger Preview
+![Screenshot of homepage](images/liveboard_api.png)
 
 ✨ Features
-Real-time train departure board
-Station search with autocomplete
-Dynamic train stop tracking
-Train delay and cancellation status handling
-Upcoming stops calculation
-In-memory caching for improved performance
-RESTful API architecture
-External railway API integration (iRail)
-🛠 Tech Stack
+🚉 Real-time train departure board
+🔍 Station search with autocomplete support
+🚦 Train delay and cancellation status handling
+🛤️ Dynamic train stops calculation
+⚡ In-memory caching for performance optimization
+🔄 External railway API integration (iRail)
+📡 RESTful API architecture
+🛠️ Tech Stack
 ASP.NET Core Web API
 C#
 MemoryCache
@@ -21,96 +32,121 @@ HttpClient
 REST API
 JSON Serialization
 DTO Mapping Layer
+📂 Project Structure
+Controllers/
+Mappings/
+Models/
+ ├── Api/
+ └── DTOs/
+Services/
+ ├── Implementations/
+ └── Interfaces/
+🧠 Architecture
+
+The backend follows a service-based architecture:
+
+Controllers → Services → Mapping Layer → External API
+
+The application uses:
+
+DTO mapping for optimized frontend responses
+Memory caching to reduce repeated external API requests
+Async processing for concurrent train stop loading
 📡 API Endpoints
-Get live departures for a station
+🚉 Liveboard
+
 GET /api/liveboard/{station}
 
 Example:
 
 GET /api/liveboard/Gent-Sint-Pieters
 
-Returns:
+Response:
 
-Upcoming departures
-Delay information
-Platform details
-Train status
-Upcoming stops
-Search stations
-GET /api/stations?query=gen
+{
+  "stationName": "Gent-Sint-Pieters",
+  "latitude": 51.035896,
+  "longitude": 3.710675,
+  "rows": [
+    {
+      "directionName": "Brussel-Zuid",
+      "departureTime": "2026-05-11T10:15:00+00:00",
+      "platform": "8",
+      "vehicleInfoShortname": "IC 1832",
+      "delayMinutes": 2,
+      "status": "Delayed"
+    }
+  ]
+}
+🔍 Stations Search
 
-Returns matching Belgian train stations based on user input.
+GET /api/stations?query={text}
 
-⚡ Performance Optimization
+Example:
 
-The application uses in-memory caching to reduce external API calls and improve response times.
+GET /api/stations?query=Gen
 
-Implemented caching strategies:
+Response:
+
+[
+  { "name": "Gent-Sint-Pieters" },
+  { "name": "Genk" }
+]
+⚡ Caching Strategy
+
+The API uses in-memory caching to improve performance and reduce unnecessary external API calls.
+
+Implemented caching:
 
 Liveboard caching
 Vehicle/stops caching
 Sliding expiration
 Absolute expiration
-🧠 Architecture
-
-The backend follows a service-based architecture:
-
-Controllers → Services → Mapping Layer → External API
-Main Components
-Controllers
-
-Handle HTTP requests and responses.
-
-Services
-
-Contain business logic, API integration, caching, and train status calculations.
-
-Mapping Layer
-
-Transforms external API responses into optimized DTOs for frontend consumption.
-
-External API
-
-The application consumes real-time railway data from the iRail public API.
-
 🌍 External API
 
 This project uses the public iRail API:
 
 iRail API
 
-🚀 Run Locally
+📄 API Documentation (Swagger)
 
-Clone the repository:
+Interactive Swagger documentation available at:
 
+🔗 https://traintracker-1.onrender.com/swagger
+
+⚙️ Setup
+Clone repository
 git clone https://github.com/adelalrafiq/TrainTracker.git
-
-Navigate to the project folder:
-
-cd TrainTracker.Api
-
-Run the application:
-
+Run locally
 dotnet run
 
-Default local URL:
+API runs on:
 
 https://localhost:5000
-🔗 Related Projects
+🌐 Deployment
+
+Backend deployed using:
+
+Render
+⚠️ Notes
+Backend is hosted on Render free tier
+First request may take a few seconds due to cold start
+Data is provided by the public iRail API
+🔮 Future Improvements
+⚡ Real-time updates using SignalR
+🧠 Distributed caching (Redis)
+🔐 JWT authentication
+📊 API monitoring and logging
+🔗 Related
 Frontend Repository
 
-https://github.com/adelalrafiq/train-tracker-ui.git
+https://github.com/adelalrafiq/train-tracker-ui
 
-Live Demo
+Live Frontend
 
 https://train-tracker-ui-fdfc.vercel.app/liveboard
 
-## ⚠️ Important
-
-The backend API is deployed on Render's free hosting plan.  
-If the application has been inactive for some time, the first request may be slower due to cold start initialization.
-
 👨‍💻 Author
 
-**Adela Alrafiq** - Full Stack Developer
-GitHub: https://github.com/adelalrafiq
+Adel Al-Rafiq 🚀
+Full Stack Developer
