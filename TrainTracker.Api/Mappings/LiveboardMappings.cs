@@ -29,7 +29,6 @@ public static class LiveboardMappings
       Longitude = ParseDouble(response.StationInfo?.LocationX ?? ""),
       Latitude = ParseDouble(response.StationInfo?.LocationY ?? ""),
       Rows = response.Departures?.Departure?
-      .Take(10)
       .Select(d => d.ToDto(response.Station))
       .OrderBy(x => x.DepartureTime)
       .ToList() ?? new List<LiveboardRowDto>()
