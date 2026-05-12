@@ -20,19 +20,16 @@ public class StationsService : IStationsService
       return new List<StationDto>();
 
     // load once
-    if (_cachedStations == null)
+    if (!_cachedStations.Any())
     {
       var url = "https://api.irail.be/stations/?format=json&lang=nl";
-
       var response = await _httpClient.GetStringAsync(url);
-
       var options = new JsonSerializerOptions
       {
         PropertyNameCaseInsensitive = true
       };
 
       var data = JsonSerializer.Deserialize<StationsResponse>(response, options);
-
       _cachedStations = data?.Stations?
         .Select(s => s.Name)
         .Where(n => !string.IsNullOrEmpty(n))

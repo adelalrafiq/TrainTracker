@@ -32,8 +32,8 @@ public class LiveboardService : ILiveboardService
     // cache options
     var cacheOptions = new MemoryCacheEntryOptions
     {
-      AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30), // مدة الكاش
-      SlidingExpiration = TimeSpan.FromSeconds(10) // يتجدد إذا في استخدام
+      AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30), // time to live
+      SlidingExpiration = TimeSpan.FromSeconds(10) // refreshes if accessed
     };
 
     _cache.Set(cacheKey, freshData, cacheOptions);
