@@ -3,7 +3,7 @@
 public class Departure
 {
   public string Station { get; set; } = string.Empty;
-  public string Time { get; set; } = string.Empty;
+  public long Time { get; set; }
   public string Delay { get; set; } = string.Empty;
 
   public string Platform { get; set; } = string.Empty;

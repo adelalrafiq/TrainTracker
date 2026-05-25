@@ -2,7 +2,7 @@
 
 public class StationInfo
 {
-  public string LocationX { get; set; } = string.Empty; // Longitude
-  public string LocationY { get; set; } = string.Empty; // Latitude
+  public double LocationX { get; set; } // Longitude
+  public double LocationY { get; set; } // Latitude
   public string Name { get; set; } = string.Empty;
 }

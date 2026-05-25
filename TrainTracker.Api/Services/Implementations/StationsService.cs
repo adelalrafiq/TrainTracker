@@ -42,7 +42,6 @@ public class StationsService : IStationsService
     return _cachedStations
       .Where(s =>
       s.StartsWith(query, StringComparison.OrdinalIgnoreCase))
-      .Take(5)
       .Select(s => new StationDto { Name = s })
       .ToList();
   }

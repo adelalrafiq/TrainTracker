@@ -5,7 +5,7 @@ public class LiveboardRowDto
   /// <example>Antwerp-Central</example>
   public string DirectionName { get; set; } = string.Empty;
   /// <example>2026-05-04T08:30:00</example>
-  public DateTimeOffset DepartureTime { get; set; }
+  public DateTime DepartureTime { get; set; }
   /// <example>4</example>
   public string Platform { get; set; } = string.Empty;
   /// <example>IC 1830</example>

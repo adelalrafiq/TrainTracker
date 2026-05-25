@@ -11,7 +11,7 @@ public static class LiveboardMappings
     return new LiveboardRowDto
     {
       DirectionName = d.Station,
-      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(long.TryParse(d.Time, out var unixSeconds) ? unixSeconds : 0).ToLocalTime(),
+      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(d.Time).DateTime.ToLocalTime(),
       Platform = d.Platform,
       VehicleInfoShortname = d.VehicleInfo.ShortName,
       DelayMinutes = ParseDelay(d.Delay),
@@ -26,8 +26,8 @@ public static class LiveboardMappings
     return new LiveboardDto
     {
       StationName = response.Station,
-      Longitude = ParseDouble(response.StationInfo?.LocationX ?? ""),
-      Latitude = ParseDouble(response.StationInfo?.LocationY ?? ""),
+      Longitude = response.StationInfo?.LocationX ?? 0,
+      Latitude = response.StationInfo?.LocationY ?? 0,
       Rows = response.Departures?.Departure?
       .Select(d => d.ToDto(response.Station))
       .OrderBy(x => x.DepartureTime)
@@ -60,15 +60,5 @@ public static class LiveboardMappings
   private static bool IsCanceled(string canceled)
   {
     return canceled == "1" || canceled?.ToLower() == "true";
-  }
-
-  private static double ParseDouble(string value)
-  {
-    return double.TryParse(value,
-        System.Globalization.NumberStyles.Any,
-        System.Globalization.CultureInfo.InvariantCulture,
-        out var result)
-      ? result
-      : 0;
   }
 }

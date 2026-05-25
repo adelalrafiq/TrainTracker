@@ -1,4 +1,5 @@
 using Microsoft.OpenApi;
+using TrainTracker.Api.Hubs;
 using TrainTracker.Api.Services.Implementations;
 using TrainTracker.Api.Services.Interfaces;
 
@@ -12,6 +13,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSignalR();
 builder.Services.AddHttpClient<ILiveboardService, LiveboardService>();
 builder.Services.AddScoped<IStationsService, StationsService>();
+builder.Services.AddHttpClient<IConnectionsService, ConnectionsService>();
 
 // Swagger/OpenAPI configuration
 builder.Services.AddSwaggerGen(options =>
@@ -49,7 +51,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseSwagger();
 
 app.UseSwaggerUI(c =>
@@ -60,9 +62,9 @@ app.UseSwaggerUI(c =>
   c.RoutePrefix = "swagger";
 });
 
-app.UseCors("AllowAngularClient");
 app.UseAuthorization();
+app.UseCors("AllowAngularClient");
 
 app.MapControllers();
-
+app.MapHub<LiveboardHub>("/liveboardHub");
 app.Run();

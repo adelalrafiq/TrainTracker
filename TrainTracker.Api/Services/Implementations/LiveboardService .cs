@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using TrainTracker.Api.Hubs;
 using TrainTracker.Api.Mappings;
 using TrainTracker.Api.Models.Api;
 using TrainTracker.Api.Models.DTOs;
@@ -12,11 +15,13 @@ public class LiveboardService : ILiveboardService
 {
   private readonly HttpClient _httpClient;
   private readonly IMemoryCache _cache;
+  private readonly IHubContext<LiveboardHub> _hub;
 
-  public LiveboardService(HttpClient httpClient, IMemoryCache cache)
+  public LiveboardService(HttpClient httpClient, IMemoryCache cache, IHubContext<LiveboardHub> hub)
   {
     _httpClient = httpClient;
     _cache = cache;
+    _hub = hub;
   }
   public async Task<LiveboardDto> GetLiveboard(string station)
   {
@@ -28,6 +33,10 @@ public class LiveboardService : ILiveboardService
 
     // fetch fresh data
     var freshData = await FetchFromApi(station);
+
+    // send realtime update
+    Console.WriteLine("⚡ SIGNALR SEND TRIGGERED");
+    await _hub.Clients.All.SendAsync("LiveboardUpdated", freshData);
 
     // cache options
     var cacheOptions = new MemoryCacheEntryOptions
@@ -49,7 +58,8 @@ public class LiveboardService : ILiveboardService
 
     var options = new JsonSerializerOptions
     {
-      PropertyNameCaseInsensitive = true
+      PropertyNameCaseInsensitive = true,
+      NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
 
     var data = JsonSerializer.Deserialize<LiveboardResponse>(response, options);
