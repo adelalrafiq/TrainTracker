@@ -1,11 +1,15 @@
-﻿namespace TrainTracker.Api.Models.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TrainTracker.Api.Models.DTOs;
 
 public class ConnectionDto
 {
   public int Id { get; set; }
 
+  [Required]
   public string DepartureStation { get; set; } = string.Empty;
   public StationLocationDto DepartureLocation { get; set; } = new();
+  [Required]
   public string ArrivalStation { get; set; } = string.Empty;
   public StationLocationDto ArrivalLocation { get; set; } = new();
   public DateTime DepartureTime { get; set; }
