@@ -11,7 +11,7 @@ This API integrates with the public iRail API to provide live departures, train 
 🔗 https://traintracker-1.onrender.com/swagger/index.html
 
 📸 Swagger Preview
-![Screenshot of homepage](images/liveboard_api.png)
+![Screenshot of homepage](images/nmbs_api.png)
 
 ---
 

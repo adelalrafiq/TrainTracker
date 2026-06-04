@@ -76,11 +76,11 @@ public class ConnectionsService : IConnectionsService
 
       DepartureTime = DateTimeOffset
                        .FromUnixTimeSeconds(c.Departure.Time)
-                       .DateTime.ToLocalTime(),
+                       .DateTime,
 
       ArrivalTime = DateTimeOffset
                        .FromUnixTimeSeconds(c.Arrival.Time)
-                       .DateTime.ToLocalTime(),
+                       .DateTime,
 
       DepartureDelay = c.Departure.Delay,
       ArrivalDelay = c.Arrival.Delay,
