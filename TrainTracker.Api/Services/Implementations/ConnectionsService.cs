@@ -20,7 +20,8 @@ public class ConnectionsService : IConnectionsService
             string? date = null,
             string? time = null)
   {
-    var now = DateTime.Now;
+    var brussels = TimeZoneInfo.FindSystemTimeZoneById("Europe/Brussels");
+    var now = TimeZoneInfo.ConvertTime(DateTime.UtcNow, brussels);
     date ??= now.ToString("ddMMyy");
     time ??= now.ToString("HHmm");
     var url =
@@ -57,7 +58,7 @@ public class ConnectionsService : IConnectionsService
       return new List<ConnectionDto>();
     }
 
-    var brussels = TimeZoneInfo.FindSystemTimeZoneById("Europe/Brussels");
+
     return apiResponse.Connection.Select(c => new ConnectionDto
     {
       Id = c.Id,
