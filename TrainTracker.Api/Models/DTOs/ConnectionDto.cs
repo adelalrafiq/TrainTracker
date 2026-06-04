@@ -12,8 +12,8 @@ public class ConnectionDto
   [Required]
   public string ArrivalStation { get; set; } = string.Empty;
   public StationLocationDto ArrivalLocation { get; set; } = new();
-  public DateTime DepartureTime { get; set; }
-  public DateTime ArrivalTime { get; set; }
+  public DateTimeOffset DepartureTime { get; set; }
+  public DateTimeOffset ArrivalTime { get; set; }
   public int DepartureDelay { get; set; }
   public int ArrivalDelay { get; set; }
   public int Duration { get; set; }
