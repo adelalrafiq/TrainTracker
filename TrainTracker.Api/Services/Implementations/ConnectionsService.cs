@@ -74,9 +74,9 @@ public class ConnectionsService : IConnectionsService
         Lng = c.Arrival.StationInfo.LocationX
       },
 
-      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(c.Departure.Time),
+      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(c.Departure.Time).ToLocalTime(),
 
-      ArrivalTime = DateTimeOffset.FromUnixTimeSeconds(c.Arrival.Time),
+      ArrivalTime = DateTimeOffset.FromUnixTimeSeconds(c.Arrival.Time).ToLocalTime(),
 
       DepartureDelay = c.Departure.Delay,
       ArrivalDelay = c.Arrival.Delay,

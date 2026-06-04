@@ -11,7 +11,7 @@ public static class LiveboardMappings
     return new LiveboardRowDto
     {
       DirectionName = d.Station,
-      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(d.Time).DateTime.ToLocalTime(),
+      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(d.Time).ToLocalTime(),
       Platform = d.Platform,
       VehicleInfoShortname = d.VehicleInfo.ShortName,
       DelayMinutes = ParseDelay(d.Delay),
