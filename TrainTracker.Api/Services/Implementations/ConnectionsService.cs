@@ -57,6 +57,7 @@ public class ConnectionsService : IConnectionsService
       return new List<ConnectionDto>();
     }
 
+    var brussels = TimeZoneInfo.FindSystemTimeZoneById("Europe/Brussels");
     return apiResponse.Connection.Select(c => new ConnectionDto
     {
       Id = c.Id,
@@ -74,9 +75,10 @@ public class ConnectionsService : IConnectionsService
         Lng = c.Arrival.StationInfo.LocationX
       },
 
-      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(c.Departure.Time).ToLocalTime(),
-
-      ArrivalTime = DateTimeOffset.FromUnixTimeSeconds(c.Arrival.Time).ToLocalTime(),
+      DepartureTime = TimeZoneInfo.ConvertTime(
+        DateTimeOffset.FromUnixTimeSeconds(c.Departure.Time), brussels),
+      ArrivalTime = TimeZoneInfo.ConvertTime(
+        DateTimeOffset.FromUnixTimeSeconds(c.Arrival.Time), brussels),
 
       DepartureDelay = c.Departure.Delay,
       ArrivalDelay = c.Arrival.Delay,

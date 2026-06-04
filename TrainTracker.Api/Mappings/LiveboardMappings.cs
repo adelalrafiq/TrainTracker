@@ -8,10 +8,12 @@ public static class LiveboardMappings
   // Entity → DTO (GET)
   public static LiveboardRowDto ToDto(this Departure d, string station)
   {
+    var brussels = TimeZoneInfo.FindSystemTimeZoneById("Europe/Brussels");
     return new LiveboardRowDto
     {
       DirectionName = d.Station,
-      DepartureTime = DateTimeOffset.FromUnixTimeSeconds(d.Time).ToLocalTime(),
+      DepartureTime = TimeZoneInfo.ConvertTime(
+        DateTimeOffset.FromUnixTimeSeconds(d.Time), brussels),
       Platform = d.Platform,
       VehicleInfoShortname = d.VehicleInfo.ShortName,
       DelayMinutes = ParseDelay(d.Delay),
