@@ -73,11 +73,11 @@ Memory caching to reduce repeated external API requests
 
 ```
 
-GET /api/liveboard/{station}
+GET /liveboard/{station}
 
 Example:
 
-GET /api/liveboard/Gent-Sint-Pieters
+GET /liveboard/Gent-Sint-Pieters
 
 Response:
 
@@ -105,11 +105,11 @@ Response:
 
 ```
 
-GET /api/stations?query={text}
+GET /stations?query={text}
 
 Example:
 
-GET /api/stations?query=Gen
+GET /stations?query=Gen
 
 Response:
 
