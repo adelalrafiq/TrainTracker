@@ -6,7 +6,7 @@ using TrainTracker.Api.Services.Interfaces;
 namespace TrainTracker.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class LiveboardController : ControllerBase
 {
   private readonly ILiveboardService _liveboardService;

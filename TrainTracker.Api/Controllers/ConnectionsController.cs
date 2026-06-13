@@ -4,7 +4,7 @@ using TrainTracker.Api.Services.Interfaces;
 
 namespace TrainTracker.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class ConnectionsController : ControllerBase
 {
